@@ -19,16 +19,215 @@
 				<section data-markdown data-separator="^---" data-separator-vertical="^--" data-separator-notes="^Note:">
 					<textarea data-template>
 ## Föreläsning 2
-### Bottom text
+### Uttryck och Satser
 
 
 ---
 
 
 ## Agenda
-
+* Uttryck (Expressions)
+* Satser (Statements)
 
 					</textarea>
+				</section>
+
+				<section>
+					<h3>Uttryck</h3>
+				</section>
+
+				<section>
+					<section>
+						<h3>Operatorer</h3>
+					</section>
+
+					<section>
+						<h3>Evalueringsordning</h3>
+					</section>
+
+					<section>
+						<h3>Aritmetiska Operatorer</h3>
+						<section data-markdown>
+							<textarea data-template>
+| Operator	| Function				| Use					|
+|-----------|-----------------------|-----------------------|
+|+			| addition				| expr + expr			|
+|-			| subtraction			| expr - expr			|
+|*			| multiplication		| expr * expr			|
+|/			| division				| expr / expr			|
+|%			| remainder (modulus)	| expr % expr			|
+|+			| unary plus			| +expr					|
+|-			| unary minus			| -expr					|
+							</textarea>
+						</section>
+					</section>
+
+					<section>
+						<h3>Logiska Operatorer</h3>
+						<section data-markdown>
+							<textarea data-template>
+| Operator	| Function				| Use					|
+|-----------|-----------------------|-----------------------|
+|!			| logical NOT			| !expr					|
+|&lt;		| less than				| expr &lt; expr		|
+|&lt;=		| less than or equal	| expr &lt;= expr		|
+|&gt;		| greater than			| expr &gt; expr		|
+|&gt;=		| greater than or equal	| expr &gt;= expr		|
+|==			| equalilty				| expr == expr			|
+|!=			| inequalilty			| expr != expr			|
+|&&			| logical AND			| expr && expr			|
+|\|\|		| logical OR			| expr \|\| expr		|
+							</textarea>
+						</section>
+					</section>
+
+					<section>
+						<h3>Tilldelningsoperator</h3>
+						<pre><code class="cpp" data-line-numbers data-trim>
+							int foo = 0;
+							const int bar = foo;
+
+							foo = 37;
+
+							int a, b;
+							a = b = 10;
+
+							// Vanligt fel!
+							if (a = b) // always true if b != 0
+							if (a == b) // tests if a is equal to b
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Inkremerings- och Dekrementeringsoperator</h3>
+						<p>För att öka eller minska ett värde med 1</p>
+
+						<pre><code class="cpp" data-trim>
+							int a = 0;
+							int b = 0;
+							int c = 0;
+							b = ++a;
+							c = a++;
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Villkorsoperator</h3>
+						<h4>(Ternary operator)</h4>
+						<p>Kort version av if-else</p>
+
+						<pre><code class="cpp" data-trim>
+							char final_grade;
+							if (grace &lt; 60)
+								final_grade = 'U'
+							else
+								final_grade = 'G'
+
+							char final_grade = (grade &lt; 60) ? 'U' : 'G';
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Villkorsoperator</h3>
+						<h4>(Ternary operator)</h4>
+						<p>Kort version av if-else</p>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							char final_grade;
+							if (grace < 60)
+								final_grade = 'U'
+							else
+								final_grade = 'G'
+
+							char final_grade = (grade < 60) ? 'U' : 'G';
+						</script></code></pre>
+					</section>
+
+					<section>
+						<h3>Bitoperatorer</h3>
+						<section data-markdown>
+							<textarea data-template>
+| Operator	| Function		| Use					|
+|-----------|---------------|-----------------------|
+|~			| bitwise NOT	| ~expr					|
+|&			| bitwise AND	| expr & expr			|
+|\|			| bitwise OR	| expr \| expr			|
+|^			| bitwise XOR	| expr ^ expr			|
+|&lt;&lt;	| left shift	| expr &lt;&lt; expr	|
+|&gt;&gt;	| right shift	| expr &gt;&gt; expr	|
+							</textarea>
+						</section>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Typkonvertering (Casting)</h3>
+
+						<ul>
+							<li>Konverterar ett typvärde till ett annat</li>
+							<li>Kan ske implicit eller explicit</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Implicit Typkonvertering</h3>
+
+						<p>Görs av kompilatorn utan att du ber om det</p>
+						<ul>
+							<li>Görs av kompilatorn utan att du ber om det</li>
+							<li>Kan ske implicit eller explicit</li>
+						</ul>
+						<p>Sker även vid funktionsanrop!</p>
+					</section>
+
+					<section>
+						<h3>Explicit Typkonvertering</h3>
+
+						<p>Görs av dig som programmerare</p>
+
+						<p>'C-style' är en typkonvertering ärvt från C</p>
+
+						<ul>
+							<li>static_cast</li>
+							<li>const_cast</li>
+							<li>reintrepret_cast</li>
+							<li>dynamic_cast</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Satser (Statements)</h3>
+					</section>
+
+					<section>
+						<h3>Satser (Statements)</h3>
+						<ul>
+							<li>En instruktion i ett program</li>
+							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
+							<li>Exekveras i den ordning som du skrivit dem</li>
+							<li>Exekvering är inte alltid en linjär sekvens!</li>
+							<li>Segment kan repeteras, </li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>Selektion</h3>
+				</section>
+
+				<section>
+					<h3>Scope</h3>
+				</section>
+
+				<section>
+					<h3>break, continue, goto</h3>
+				</section>
+
+				<section>
+					<h3>switch case</h3>
 				</section>
 		  </div>
 	  </div>

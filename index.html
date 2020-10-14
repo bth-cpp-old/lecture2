@@ -202,32 +202,351 @@
 						<h3>Satser (Statements)</h3>
 					</section>
 
-					<section>
+					<section data-auto-animate>
 						<h3>Satser (Statements)</h3>
 						<ul>
 							<li>En instruktion i ett program</li>
 							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
-							<li>Exekveras i den ordning som du skrivit dem</li>
-							<li>Exekvering är inte alltid en linjär sekvens!</li>
-							<li>Segment kan repeteras, </li>
 						</ul>
+					</section>
+					<section data-auto-animate>
+						<h3>Satser (Statements)</h3>
+						<ul>
+							<li>En instruktion i ett program</li>
+							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							// Read until input is equal to "hello"
+							while (std::cin >> s && s != "hello")
+								; // Null statement
+						</script></code></pre>
+						<p>Enklaste satsen är ett <em>null statement</em></p>
+					</section>
+					<section data-auto-animate>
+						<h3>Satser (Statements)</h3>
+						<ul>
+							<li>En instruktion i ett program</li>
+							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							int main()
+							{
+								int n = 1;		// declaration statement
+								n = n + 1;		// expression statement
+								std::cout << << n;	// expression statement
+								return 0;		// return statement
+							}
+						</script></code></pre>
+					</section>					
+					<section data-auto-animate>
+						<h3>Satser (Statements)</h3>
+						<ul>
+							<li>En instruktion i ett program</li>
+							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							while (counter != stop); // Null statement
+								++counter;
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Satser (Statements)</h3>
+						<ul>
+							<li>En instruktion i ett program</li>
+							<li>I C++ avslutas de flesta satser med semikolon ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							while (counter != stop); // Iterates forever
+								++counter; // Will never execute
+						</script></code></pre>
+						<p>Lätt misstag, svårt att hitta!</p>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Block</h3>
+						<ul>
+							<li>En sekvens av noll eller flera satser</li>
+							<li>Block omges av '{' och '}' (alltid parvis!)</li>
+							<li>Block avslutas <b>inte</b> med ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers="2-5"><script type="text/template">
+							while (val <= 10)
+							{ // block begin
+								sum += val;
+								++val;
+							} // block end
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Block</h3>
+						<ul>
+							<li>En sekvens av noll eller flera satser</li>
+							<li>Block omges av '{' och '}' (alltid parvis!)</li>
+							<li>Block avslutas <b>inte</b> med ';'</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							// Read until input is equal to "hello"
+							while (std::cin >> s && s != "hello")
+							{ } // Empty block
+						</script></code></pre>
+						<ul>
+							<li>Block kan även vara tomma</li>
+							<li>likvärdigt med ett <em>null statement</em></li>
+						</ul>
+					</section>
+					<section data-auto-animate>
+						<h3>Scope</h3>
+						<ul>
+							<li>Variabler kan definieras i block</li>
+							<li>Endast <em>synliga</em> inom samma block!</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							int main
+							{
+							  {
+							    char to_print[] = "Ha! Can't reach me!\n";
+							  }
+							  std::cout << to_print; // Error!
+							}
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Scope</h3>
+						<ul>
+							<li>Variabler kan definieras i block</li>
+							<li>Endast <em>synliga</em> inom samma block!</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-line-numbers><script type="text/template">  if (want_prime_number)
+  {
+    int nr = 5;
+  }
+  else
+  {
+    nr = 2; // Error
+  }
+  std::cout << "Number: " << nr << "\n"; // Error
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Scope</h3>
+						<ul>
+							<li>Variabler kan definieras i block</li>
+							<li>Endast <em>synliga</em> inom samma block!</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-line-numbers><script type="text/template">  int nr;
+  if (want_prime_number)
+  {
+    nr = 5;
+  }
+  else
+  {
+    nr = 2; // Ok!
+  }
+  std::cout << "Number: " << nr << "\n"; // Ok!
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Scope</h3>
+						<ul>
+							<li>Variabler kan definieras i block</li>
+							<li>Endast <em>synliga</em> inom samma block!</li>
+						</ul>
+						<pre data-id="statements"><code class="cpp" data-line-numbers><script type="text/template">void print_any_number(bool want_prime_number)
+{
+  int nr;
+  if (want_prime_number)
+  {
+    nr = 5;
+  }
+  else
+  {
+    nr = 2; // Ok!
+  }
+  std::cout << "Number: " << nr << "\n"; // Ok!
+}
+						</script></code></pre>
+						<p>I princip allt är uppbyggt med block!</p>
 					</section>
 				</section>
 
 				<section>
-					<h3>Selektion</h3>
-				</section>
+					<section>
+						<h3>Selektion</h3>
+					</section>
 
-				<section>
-					<h3>Scope</h3>
-				</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>				
+						<p>Kan förkortas om endast en sats i blocket!</p>
+						<pre data-id="selection"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (condition)
+							{
+							  statement;
+							}
+							else if (other condition)
+							{
+							  statement;
+							}
+							else
+							{
+							  statement;
+							}
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>
+						<p>Kan förkortas om endast en sats i blocket!</p>
+						<pre data-id="selection"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (condition)
+							  statement;
+							else if (other condition)
+							  statement;
+							else
+							  statement;
+						</script></code></pre>	
+					</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>
+						<pre data-id="alexa"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (input == "Alexa, hello!")
+							  std::cout << "Hello to you to!" << std::endl;
+							else if (input == "Alexa, do my homework!")
+							  std::cout << ".__." << std::endl;
+							else
+							  std::cout << "I didn't understand that." << std::endl;
+						</script></code></pre>	
+					</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>
+						<pre data-id="alexa"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (input == "Alexa, hello!")
+							  std::cout << "Hello to you to!" << std::endl;
+							else if (input == "Alexa, do my homework!")
+							{
+							  std::cout << ".__." << std::endl;
+							  do_homework();
+							}
+							else
+							  std::cout << "I didn't understand that." << std::endl;
+						</script></code></pre>	
+					</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>
+						<pre data-id="alexa"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (input == "Alexa, hello!")
+							  std::cout << "Hello to you to!" << std::endl;
+							else if (input == "Alexa, do my homework!")
+							  std::cout << ".__." << std::endl;
+							do_homework(); // Will always execute!
+						</script></code></pre>
+						<p>Viktigt att tänka på '{' och '}'!</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Villkorliga Satser - if</h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (celsius_outside > 0)
+							{
+							  if(celsius_outside > 20)
+							    std::cout << "Let's get a tan!" << std::endl;
+							  else
+							    std::cout << "Warm and comfy." << std::endl;
+							}
+							else // celsius_outside is negative
+							{
+							  if (celsius_outside > -20)
+								std::cout << "Cold and comfy." << std::endl;
+							  else
+								std::cout << "Perfect weather!" << std::endl;
+							}
+						</script></code></pre>
+						<p>Nästlade if-satser</p>
+					</section>
 
-				<section>
-					<h3>break, continue, goto</h3>
-				</section>
+					<section>
+						<h3>Villkorliga Satser - switch</h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							switch (expression)
+							{
+							  case condition1:
+							    // Do something
+							    break;
+							  case condition2:
+							    // Do something else
+							    break;
+							  default:
+							    // Executes if no condition matches expression
+							}
+						</script></code></pre>
+					</section>
 
-				<section>
-					<h3>switch case</h3>
+					<section>
+						<h3>Iterativa Satser - while</h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							while (condition)
+							{
+							  // Do something many times
+							}
+						</script></code></pre>
+					</section>
+
+					<section>
+						<h3>Iterativa Satser - do while</h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							do
+							{
+							  // Do something many times
+							} while (condition)
+						</script></code></pre>
+					</section>
+
+					<section>
+						<h3>Iterativa Satser - for</h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							for (initializer; condition; expression)
+							{
+							  // Do something many times
+							}
+						</script></code></pre>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Iterativa Satser - range for</h3>
+						<pre data-id="loop"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							for (declaration : expression)
+							{
+							  // Do something many times with declarated variable
+							}
+						</script></code></pre>
+						<ul>
+							<li><em>declaration</em> måste definiera en variabel</li>
+							<li><em>expression</em> måste representera en sekvens</li>
+						</ul>
+					</section>
+					<section data-auto-animate>
+						<h3>Iterativa Satser - range for</h3>
+						<pre data-id="loop"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::vector<int> my_primes = {2, 3, 5, 7, 11, 13, 17, 19};
+							for (auto &nr : my_primes)
+							{
+							  std::cout << nr << std::endl;
+							}
+						</script></code></pre>
+						<ul>
+							<li><em>declaration</em> måste definiera en variabel</li>
+							<li><em>expression</em> måste representera en sekvens</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Hopp - break</h3>
+					</section>
+
+					<section>
+						<h3>Hopp - continue</h3>
+					</section>
+
+					<section>
+						<h3>Hopp - goto</h3>
+					</section>
 				</section>
 		  </div>
 	  </div>

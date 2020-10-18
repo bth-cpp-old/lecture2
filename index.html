@@ -481,6 +481,71 @@
 								// Executes if no condition matches expression
 							}
 						</script></code></pre>
+
+						<ul>
+							<li><em>expression</em> måste bara konverterbar till ett heltal</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Villkorliga Satser - <em>switch</em></h3>
+
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							if (nr == 1)
+								// Do something
+							else if (nr == 2)
+								// Do something
+							// ...
+							else if (nr == 28)
+								// Do something
+							else
+								// Handle error
+						</script></code></pre>
+
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							switch (nr)
+							{
+							case 0:
+								// Do something
+								break;
+							case 1:
+								// Do something
+								break;
+							// ...
+							case 28:
+								// Do something
+								break;
+							default:
+								// handle error
+							}
+						</script></code></pre>
+					</section>
+					<section>
+						<h3>Villkorliga Satser - <em>switch</em></h3>
+
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::cin >> c; // Enter a char
+							if (c == ' ')
+								// Handle space
+							else if (c == '-' || c == '+' || c == '*' || c == '/')
+								// Handle operation
+						</script></code></pre>
+
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::cin >> c; // Enter a char
+							switch (c)
+							{
+							case ' ':
+								// Handle space
+								break;
+
+							case '-':
+							case '+': // Fall through, since no break
+							case '*':
+							case '/':
+								// Handle operation
+								break;
+							}
+						</script></code></pre>
 					</section>
 				</section>
 
@@ -708,14 +773,173 @@
 
 					<section>
 						<h3>Hopp - <em>break</em></h3>
+						<ul>
+							<li>Terminerar <em>närmast</em> omslutande</li>
+							<ul>
+								<li>iterationssats, eller</li>
+								<li><em>switch</em> sats</li>
+							</ul>
+						</ul>
+					</section>
+					<section data-auto-animate>
+						<h3>Hopp - <em>break</em></h3>
+						<p>Exempel</p>
+
+						<pre data-id="no-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							// Find the word "hello"
+							int index = -1; // Is -1 until found
+							for (int i = 0; i < length && index == -1; ++i)
+								if (words[i] == "hello")
+									index = i;
+						</script></code></pre>
+
+						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							// Find the word "hello"
+							int index = 0;
+							for (; index < length; ++index)
+								if (words[index] == "hello")
+									break; // No need to search rest of list
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Hopp - <em>break</em></h3>
+						<p>Exempel</p>
+
+						<pre data-id="no-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::string input;
+							while (std::cin >> input && !input.empty() && input != "exit")
+							{
+								// Do something with input
+							}
+						</script></code></pre>
+
+						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::string input;
+							while (std::cin >> input && !input.empty())
+							{
+								// Handle exeptions
+								if (input == "exit")
+									break;
+
+								// Do something with input
+							}
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Hopp - <em>break</em></h3>
+						<p>Exempel</p>
+
+						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							while (std::cin >> input)
+							{
+								// Extract first word from input
+								first_word = "";
+								for (auto& c : input)
+								{
+									if (c == " ")
+										break; // terminate the for loop
+									first_word += c;
+								}
+								// Do something with the first word
+							}
+						</script></code></pre>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							multiply 5 5 // first word is a command
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Hopp - <em>break</em></h3>
+						<p>Exempel</p>
+
+						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::cin >> c; // Enter a char
+							switch (c)
+							{
+							case ' ':
+								// Handle space
+								break;
+
+							case '-':
+							case '+': // Fall through, since no break
+							case '*':
+							case '/':
+								// Handle operation
+								break;
+							}
+						</script></code></pre>
 					</section>
 
 					<section>
 						<h3>Hopp - <em>continue</em></h3>
+						<ul>
+							<li>Påverkar närmast omslutande iterationssats</li>
+							<li>Avslutar nuvarande iteration</li>
+							<li>Påbörjar omedelbart nästa iteration</li>
+							<ul>
+								<li><em>for</em> hoppar till <em>expression</em>, följt av <em>condition</em></li>
+								<li><em>while</em> hoppar till <em>condition</em></li>
+								<li><em>do while</em> hoppar till <em>condition</em></li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h3>Hopp - <em>continue</em></h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							// Print all pairs (a, b) where
+							// a, b in [1-3] inclusive,
+							// and a != b
+							for (int a = 0; a < 3; ++a)
+							{
+								for (int b = 0; b < 3; ++b)
+								{
+									// "Skip" print if equal
+									if (a == b)
+										continue; // Jump to next iteration in inner loop
+
+									std::cout << "(" << a << ", " << b << ") ";
+								}
+							}
+						</script></code></pre>
+
+						<p>Output:</p>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							(1, 2) (1, 3) (2, 1) (2, 3) (3, 1) (3, 2)
+						</script></code></pre>
 					</section>
 
 					<section>
 						<h3>Hopp - <em>goto</em></h3>
+						<ul>
+							<li>Ovillkorligt hopp till <em>label</em> i samma funktion</li>
+							<li><em>label</em> kan existera före eller efter hoppanropet</li>
+						</ul>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							label:
+						</script></code></pre>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							goto label; 
+						</script></code></pre>
+					</section>
+					<section>
+						<h3>Hopp - <em>goto</em></h3>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							std::vector<std::string> data_buffer;
+							while (std::cin >> command && command != "exit")
+							{
+								std::string data;
+
+								// ... Fill data based on command
+
+								if (is_invalid(data))
+									goto cleanup;
+
+								data_buffer.push_back(data)
+							}
+
+							cleanup:
+							data_buffer.clear();
+						</script></code></pre>
 					</section>
 				</section>
 		  </div>

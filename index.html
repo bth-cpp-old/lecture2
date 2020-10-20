@@ -64,17 +64,79 @@
 					<section data-auto-animate>
 						<h3>Prioritet och Associativitet</h3>
 						<ul>
-							<li>Mer än en operator kan användas per uttryck</li>
-							<pre><code class="cpp" data-trim><script type="text/template">
-								int c = a + b; // Assignment and addition operator
+							<li>Flera operatorer skapar ett sammansatt uttryck</li>
+							<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
+								int a = 6 + 3 * 4 / 2 + 2;
 							</script></code></pre>
-							<li></li>
-						</ul>
-						
+							<li>Alla operatorer evalueras inte samtidigt</li>
+							<li>Resultatet av sammansatta uttryck beror på</li>
+							<ol>
+								<li><b>Prioritet</b> - högre prioritet evalueras före</li>
+								<li><b>Associativitet</b> - <em>riktning</em> av evaluering </li>
+							</ol>
+						</ul>	
+					</section>
+					<section data-auto-animate>
+						<h3>Prioritet och Associativitet</h3>
+						<ul>
+							<li>Flera operatorer skapar ett sammansatt uttryck</li>
+							<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
+								int a = 6 + 3 * 4 / 2 + 2;
+							</script></code></pre>	
+							<li>Alla operatorer evalueras inte samtidigt</li>
+							<li>Resultatet av sammansatta uttryck beror på</li>
+							<ol>
+								<li><b>Prioritet</b> - högre prioritet evalueras före</li>
+								<li><b>Associativitet</b> - <em>riktning</em> av evaluering </li>
+							</ol>
+							
+						</ul>	
+					</section>
+					<section data-auto-animate>
+						<h3>Prioritet och Associativitet</h3>
+						<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
+							int a = 6 + 3 * 4 / 2 + 2;
+						</script></code></pre>
+						<ol>
+							<li><b>Prioritet</b> - högre prioritet evalueras före</li>
+							<ul>
+								<li>'*' och '/' har högre prioritet än '+'</li>
+							</ul>
+							<ul>6 + <b>3 * 4 / 2</b> + 2 = 6 + <b>6</b> + 2</ul><br>
+							
+							<li><b>Associativitet</b> - <em>riktning</em> av evaluering </li>
+							<ul>
+								<li>Gäller bland operatorer med samma prioritet</li>
+								<li>I C++ är detta oftast från vänster till höger</li>
+							</ul>
+							<ul><b>3 * 4</b> / 2 = 12 / 2</ul>
+							<ul><b>6 + 6</b> + 2 = 12 + 2</ul>
+						</ol>	
+					</section>
+					<section data-auto-animate>
+						<h3>Prioritet och Associativitet</h3>
+						<p>Du kan ändra denna ordning med paranteser</p>
+						<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
+							int a = (6 + 3) * (4 / 2 + 2);	// a = 36
+							int b = ((6 + 3) * 4) / 2 + 2;	// b = 20
+							int c = 6 + 3 * 4 / (2 + 2);		// c = 9
+						</script></code></pre>
 					</section>
 
 					<section>
 						<h3>Evalueringsordning</h3>
+						<ul>
+							<li>Prioritet anger hur operander är grupperade</li>
+							<li>...men inte hur/när operander beräknas</li>
+						</ul>
+						<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
+							int result = f1() * f2();
+						</script></code></pre>
+						<ol>
+							<li><b>Prioritet</b> - Returvärden av f1() och f2() multipliceras</li>
+							<li><b>Associativitet</b> - Produkten tilldelas till <em>result</em></li>
+						</ol>
+						<p><b>Finns inga garantier i vilken ordning f1() och f2() anropas!</b></p>
 					</section>
 
 					<section>
@@ -178,7 +240,6 @@
 					<section>
 						<h3>Bitoperatorer</h3>
 						<section data-markdown>
-							<textarea data-template>
 | Operator	| Function		| Use					|
 |-----------|---------------|-----------------------|
 |~			| bitwise NOT	| ~expr					|
@@ -187,8 +248,13 @@
 |^			| bitwise XOR	| expr ^ expr			|
 |&lt;&lt;	| left shift	| expr &lt;&lt; expr	|
 |&gt;&gt;	| right shift	| expr &gt;&gt; expr	|
-							</textarea>
 						</section>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Bitar och Talsystem</h3>
 					</section>
 				</section>
 

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Classes and Objects pt1</title>
+		<title>Uttryck och Satser</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -12,22 +12,36 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+		<style type="text/css">
+		.bit-style {
+			border:1px solid black;
+			border-collapse: collapse;
+		}
+		</style>
+
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides" style="tab-size: 3; -moz-tab-size: 3; -o-tab-size: 3;">
-				<section data-markdown data-separator="^---" data-separator-vertical="^--" data-separator-notes="^Note:">
+				<section data-markdown data-separator="^---$" data-separator-vertical="^--$" data-separator-notes="^Note:">
 					<textarea data-template>
-## Föreläsning 2
-### Uttryck och Satser 
+						## Föreläsning 2
+						### Uttryck och Satser 
 
 
----
+						---
 
 
-## Agenda
-* Uttryck (Expressions)
-* Satser (Statements)
+						## Agenda
+						1. Uttryck (Expressions)
+							* Operatorer
+							* Typkonvertering
+						2. Talsystem
+						3. Satser (Statements)
+							* Villkorliga satser
+							* Iterativa satser
+							* Hoppsatser
 
 					</textarea>
 				</section>
@@ -139,40 +153,36 @@
 						<p><b>Finns inga garantier i vilken ordning f1() och f2() anropas!</b></p>
 					</section>
 
-					<section>
-						<h3>Aritmetiska Operatorer</h3>
-						<section data-markdown>
-							<textarea data-template>
-| Operator	| Function				| Use					|
-|-----------|-----------------------|-----------------------|
-|+			| addition				| expr + expr			|
-|-			| subtraction			| expr - expr			|
-|*			| multiplication		| expr * expr			|
-|/			| division				| expr / expr			|
-|%			| remainder (modulus)	| expr % expr			|
-|+			| unary plus			| +expr					|
-|-			| unary minus			| -expr					|
-							</textarea>
-						</section>
+					<section data-markdown style="font-size:0.9em">
+						<textarea data-template>
+### Aritmetiska Operatorer
+**Sorterat efter prioritet** (högt till lågt)
+
+| Operator	| Function		| Use			| Associativity |
+|-----------|---------------|---------------|---------------|
+|+<br>-	| unary plus<br>unary minus | +expr<br>-expr | R-L<br>R-L |
+|*<br>/<br>% | multiplication<br>division<br>remainder | expr * expr<br>expr / expr<br>expr % expr	| L-R<br>L-R<br>L-R |
+|+<br>-	| addition<br>subtraction	| expr + expr<br>expr - expr | L-R<br>L-R	|
+
+R = Right, L = Left
+						</textarea>
 					</section>
 
-					<section>
-						<h3>Logiska Operatorer</h3>
-						<section data-markdown>
-							<textarea data-template>
-| Operator	| Function				| Use					|
-|-----------|-----------------------|-----------------------|
-|!			| logical NOT			| !expr					|
-|&lt;		| less than				| expr &lt; expr		|
-|&lt;=		| less than or equal	| expr &lt;= expr		|
-|&gt;		| greater than			| expr &gt; expr		|
-|&gt;=		| greater than or equal	| expr &gt;= expr		|
-|==			| equalilty				| expr == expr			|
-|!=			| inequalilty			| expr != expr			|
-|&&			| logical AND			| expr && expr			|
-|\|\|		| logical OR			| expr \|\| expr		|
-							</textarea>
-						</section>
+					<section data-markdown style="font-size: 0.8em">
+						<script type="text/template">
+### Logiska Operatorer
+**Sorterat efter prioritet** (högt till lågt)
+
+| Operator	| Function				| Use					| Associativity |
+|-----------|-----------------------|-----------------------|---------------|
+|!			| logical NOT			| !expr					|R-L
+|<<br><=<br>><br>>= | less than<br>less than or equal<br>greater than<br>greater than or equal | expr < expr<br>expr <= expr<br>expr > expr<br>expr >= expr | L-R<br>L-R<br>L-R<br>L-R |
+| ==<br>!= | equalilty<br>inequalilty | expr == expr<br>expr != expr | L-R<br>L-R |
+|&&			| logical AND			| expr && expr			|L-R
+|\|\|		| logical OR			| expr \|\| expr		|L-R
+
+R = Right, L = Left
+							</script>
 					</section>
 
 					<section>
@@ -192,16 +202,34 @@
 						</code></pre>
 					</section>
 
-					<section>
+					<section data-auto-animate>
 						<h3>Inkremerings- och Dekrementeringsoperator</h3>
 						<p>För att öka eller minska ett värde med 1</p>
 
-						<pre><code class="cpp" data-trim>
+						<pre data-id="incr"><code class="cpp" data-trim data-line-numbers>
 							int a = 0;
 							int b = 0;
 							int c = 0;
 							b = ++a;
 							c = a++;
+						</code></pre>
+						<p>Vilka värden får a, b och c?</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Inkremerings- och Dekrementeringsoperator</h3>
+						<p>För att öka eller minska ett värde med 1</p>
+
+						<pre data-id="incr"><code class="cpp" data-trim data-line-numbers>
+							int a = 0;
+							int b = 0;
+							int c = 0;
+							b = ++a; // Increment and return resulting value
+							c = a++; // Increment but returns initial value
+						</code></pre>
+						<pre><code class="cpp" data-trim>
+							a == 2
+							b == 1
+							c == 1
 						</code></pre>
 					</section>
 
@@ -220,77 +248,633 @@
 							char final_grade = (grade &lt; 60) ? 'U' : 'G';
 						</code></pre>
 					</section>
+				</section>
 
+				<section>
 					<section>
-						<h3>Villkorsoperator</h3>
-						<h4>(Ternary operator)</h4>
-						<p>Kort version av if-else</p>
+						<h3>Talsystem</h3>
+						<ul>
+							<li>Ibland behöver du arbeta med <em>rå</em> data</li>
+							<li>I datorminnet består rå data av 1or och 0or</li>
+							<ul>
+								<li>Även kallat ett <em>binärt</em> talsystem</li>
+								<li>Arbetar med <b>basen 2</b></li>
+							</ul>
+							<li>Människor är vana med ett <em>decimalt</em> talsystem</li>
+							<ul>
+								<li>Arbetar med <b>basen 10</b></li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h3>Talsystem</h3>
+						<ul>
+							<li>Decimalt: 155</li>
+							<li>Binärt: 10011011</li>
+						</ul>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							155 % 2	=	1 // least significant bit (lsb)
+							77 % 2	=	1
+							38 % 2	=	0
+							19 % 2	=	1
+							9 % 2		=	1
+							4 % 2		=	0
+							2 % 2		=	0
+							1 % 2		=	1 // most significant bit (msb)
+							// Read remainders from down to up
+						</script></code></pre>
+						<ol>
+							<li>Beräkna modulo</li>
+							<li>Subtrahera resten</li>
+							<li>Dividera med basen</li>
+							<li>Repetera till resultatet blir noll</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Talsystem</h3>
+						<p>Denna metod kan konvertera decimalt till alla baser</p>
+						<ul>
+							<li>Decimalt: 155</li>
+							<li>Oktalt: 233</li>
+						</ul>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							155 % 8	= 3
+							19 % 8	= 3
+							2 % 8		= 2
+						</script></code></pre>
+					</section>
+					<section>
+						<h3>Talsystem</h3>
+						Binärt: 10011011
+						<p>Formel för att konvertera till decimalt:</p>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							1*2^7 +		|		(128	+)
+							0*2^6 +		|		(0 	+)
+							0*2^5 +		|		(0 	+)
+							1*2^4 +		|		(16	+)
+							1*2^3 +		|		(8 	+)
+							0*2^2 +		|		(0 	+)
+							1*2^1 +		|		(2 	+)
+							1*2^0			|		(1		 )		= 155
+						</script></code></pre>
+					</section>
+					<section>
+						<h3>Talsystem</h3>
+						Oktalt: 233
+						<p>Formel för att konvertera till decimalt:</p>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							2*8^2 +		|		(128	+)
+							3*8^1 +		|		(24 	+)
+							3*8^0			|		(3		 )		= 155
+						</script></code></pre>
+					</section>
+					<section>
+						<h3>Bitar</h3>
+						<ul>
+							<li>Decimalt: 155</li>
+							<li>Binärt: 10011011</li>
+							<li>Vardera tecken kallas för en <em>bit</em></li>
+							<li>155 tar upp 8 bitar i minnet</li>
+						</ul>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							char my_char = 155;
+						</script></code></pre>
+						<p><b>my_char</b> existerar någonstans i datorns minne:</p>
+						<table class="bit-style">
+							<tr class="bit-style">
+								<th class="bit-style">..</th>			
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">..</th>
+							</tr>
+						</table>
+					</section>
+
+					<section data-markdown style="font-size: 0.8em">
+						<script type="text/template">
+### Bitoperatorer
+**Sorterat efter prioritet** (högt till lågt)
+
+| Operator	| Function		| Use					| Associativity |
+|-----------|---------------|-----------------------|---------------|
+|~			| bitwise NOT	| ~expr					| R-L			|
+|<<<br>>>	| left shift<br>right shift	| expr << expr<br>expr >> expr | L-R<br>L-R |
+|&			| bitwise AND	| expr & expr			| L-R
+|\|			| bitwise OR	| expr \| expr			| L-R
+|^			| bitwise XOR	| expr ^ expr			| L-R
+
+R = Right, L = Left
+						</script>
+					</section>
+
+					<section style="font-size: 0.8em">
+						<h3>Bitoperatorer</h3>
+						<h4>Bitwise NOT</h4>
 
 						<pre><code class="cpp" data-trim><script type="text/template">
-							char final_grade;
-							if (grace < 60)
-								final_grade = 'U'
-							else
-								final_grade = 'G'
+							unsigned char bits = 155
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th>= 155</th>
+							</tr>
+						</table>
+						
+						<pre><code class="cpp" data-trim><script type="text/template">
+							~bits
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th>= 100</th>
+							</tr>
+						</table>
+					</section>
 
-							char final_grade = (grade < 60) ? 'U' : 'G';
+					<section style="font-size: 0.8em">
+						<h3>Bitoperatorer</h3>
+						<h4>Bitwise shift</h4>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							unsigned char bits = 155
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th>= 155</th>
+							</tr>
+						</table>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							bits = bits << 2; // left shift 2 bits
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th>= 108</th>
+							</tr>
+						</table>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							bits = bits << 5; // left shift 5 bits
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th>= 128</th>
+							</tr>
+						</table>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							bits = bits >> 7; // right shift 7 bits
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th style="width:65px">= 1</th>
+							</tr>
+						</table>
+					</section>
+
+					<section style="font-size: 0.8em">
+						<h3>Bitoperatorer</h3>
+						<h4>Bitwise AND, OR och XOR</h4>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							unsigned char b1 = 155
+							unsigned char b2 = 50
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th>= 155</th>
+							</tr>
+							<tr>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th>= 50</th>
+							</tr>
+						</table>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							b1 & b2
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th style="width:72px">= 18</th>
+							</tr>
+						</table>
+
+						<pre><code class="cpp" data-trim><script type="text/template">
+							b1 | b2
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">1</th>
+								<th>= 187</th>
+							</tr>
+						</table>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							b1 ^ b2
+						</script></code></pre>
+						<table>
+							<tr>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th>= 169</th>
+							</tr>
+						</table>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>När behöver du tänka i bitar?</h3>
+						<ul>
+							<li>Minska minnesanvändning</li>
+							<li>Kan öka prestanda</li>
+						</ul>
+					</section>
+					<section data-auto-animate>
+						<h3>När behöver du tänka i bitar?</h3>
+
+						<pre data-id="access"><code class="cpp" data-trim><script type="text/template">
+							// User file access types (example only, not how it works irl)
+							bool create_access = true;
+							bool delete_access = false;
+							bool read_access = true;
+							bool write_access = false;
+							bool copy_access = true;
+							bool move_access = false;
+							bool rename_access = false;
+							bool lock_access = false;
+
+							// Eight bools in total (= 8 byte, depend on machine)
+						</script></code></pre>
+					</section>
+					<section data-auto-animate style="font-size: 0.8em">
+						<h3>När behöver du tänka i bitar?</h3>
+
+						<pre data-id="access"><code class="cpp" data-trim><script type="text/template">
+							bool create_access_user_1 = true;
+							bool delete_access_user_1 = false;
+							bool read_access_user_1 = true;
+							bool write_access_user_1 = false;
+							bool copy_access_user_1 = true;
+							bool move_access_user_1 = false;
+							bool rename_access_user_1 = false;
+							bool lock_access_user_1 = false;
+
+							bool create_access_user_2 = true;
+							bool delete_access_user_2 = false;
+							bool read_access_user_2 = true;
+							bool write_access_user_2 = false;
+							bool copy_access_user_2 = true;
+							bool move_access_user_2 = false;
+							bool rename_access_user_2 = false;
+							bool lock_access_user_2 = false;
+
+							// 16 bools in total (= 16 byte, depend on machine)
+						</script></code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>När behöver du tänka i bitar?</h3>
+
+						<pre data-id="access"><code class="cpp" data-trim><script type="text/template">
+							const unsigned char CREATE = 128;
+							const unsigned char DELETE = 64;
+							const unsigned char READ = 32;
+							const unsigned char WRITE = 16;
+							const unsigned char COPY = 8;
+							const unsigned char MOVE = 4;
+							const unsigned char RENAME = 2;
+							const unsigned char LOCK = 1;
+
+							unsigned char access = CREATE |	READ | COPY;
+
+							// One char in total (1 byte, depend on machine)
+						</script></code></pre>
+					</section>
+
+					<section data-auto-animate>
+						<h3>När behöver du tänka i bitar?</h3>
+
+						<pre data-id="access"><code class="cpp" data-trim><script type="text/template">
+							const unsigned char CREATE = 128;
+							const unsigned char DELETE = 64;
+							const unsigned char READ = 32;
+							const unsigned char WRITE = 16;
+							const unsigned char COPY = 8;
+							const unsigned char MOVE = 4;
+							const unsigned char RENAME = 2;
+							const unsigned char LOCK = 1;
+
+							unsigned char users[2];
+							users[0] = CREATE | READ | COPY;
+							users[1] = CREATE | DELETE | WRITE | LOCK;
+
+							// Two char in total (2 byte, depend on machine)
+						</script></code></pre>
+					</section>
+
+					<section data-auto-animate>
+						<h3>När behöver du tänka i bitar?</h3>
+
+						<pre data-id="access"><code class="cpp" data-trim data-line-numbers="2" data-trim><script type="text/template">
+							unsigned char users[2];
+							users[0] = CREATE | READ | COPY;
+							users[1] = CREATE | DELETE | WRITE | LOCK;
+						</script></code></pre>
+
+						<pre><code class="cpp" data-trim data-line-numbers="2"><script type="text/template">
+							for (int i = 0; i < nr_of_users; i++)
+								if (users[i] & READ) // true if > 0
+									read_file(get_user_id(i), file_path);
+						</script></code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h3>Typkonvertering (Casting)</h3>
+
+					<ul>
+						<li>Konverterar ett typvärde till ett annat</li>
+						<li>Kan ske implicit eller explicit</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Implicit Typkonvertering</h3>
+
+					<ul>
+						<li>Görs av kompilatorn utan att du ber om det</li>
+						<li>Sker även vid funktionsanrop!</li>
+					</ul>
+
+					<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+						int foo = 8;
+						float bar = foo; // Implicit cast
+					</script></code></pre>
+
+					<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+						if (list_size) // true if > 0
+							// Work with list
+					</script></code></pre>
+				</section>
+
+				<section>
+					
+					<section data-auto-animate>
+						<h3>Explicit Typkonvertering</h3>
+						<p>Görs av dig som programmerare</p>
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							char my_char = 65;
+							std::cout << my_char << std::endl;
+							std::cout << static_cast<int>(my_char) << std::endl;
+						</script></code></pre>
+						<p>Output:</p>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							A
+							65
+						</script></code></pre>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Explicit Typkonvertering</h3>
+						<ul>
+							<li>static_cast</li>
+							<li>const_cast</li>
+							<li>reinterpret_cast</li>
+							<li>dynamic_cast</li>
+						</ul>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Explicit Typkonvertering</h3>
+						<ul data-id="list_a">
+							<li><b>static_cast</b></li>
+							<ul>
+								<li><em>Tvingar</em> en konvertering</li>
+							</ul>
+							<li><b>const_cast</b></li>
+							<ul>
+								<li>Lägger till eller tar bort <em>const</em></li>
+							</ul>
+							<li><b>reinterpret_cast</b></li>
+							<ul>
+								<li>Konverterar utan att ändra bitmönstret</li>
+							</ul>
+							<li><b>dynamic_cast</b></li>
+							<ul>
+								<li>Försöker göra konvertering</li>
+							</ul>
+						</ul>
+						<p>Vi kommer återkomma till dessa senare i kursen!</p>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Explicit Typkonvertering</h3>
+						<ul>
+							<li><b>static_cast</b></li>
+							<li><b>const_cast</b></li>
+							<li><b>reinterpret_cast</b></li>
+							<li><b>dynamic_cast</b></li>
+						</ul>
+						<pre><code class="cpp" data-trim><script type="text/template">
+							static_cast<int>(some_char)
+							const_cast<const int*>(some_int)
+							reinterpret_cast<char*>(&some_int)
+							dynamic_cast<Cat*>(dog_pointer)
+						</script></code></pre>
+						<p>Vi kommer återkomma till dessa senare i kursen!</p>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Explicit Typkonvertering</h3>
+						<h4>Vad du kommer beröra tidigt i kursen</h4>
+						<ul>
+							<li><b>static_cast</b></li>
+						</ul>
+
+						<p>Datatyper ser olika ut i minnet:</p>
+						<table style="font-size:0.4em">
+							<tr>
+								<th>as_int:</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th>= 65</th>
+							</tr>
+							<tr>
+								<th>as_float:</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">1</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th class="bit-style">0</th>
+								<th>= 65</th>
+							</tr>
+						</table>
+						<p><em>static_cast</em> översätter detta åt dig</p>
+
+						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
+							int as_int = 65;
+							float as_float = static_cast<float>(as_int);
+
+							std::cout << as_int << std::endl; // prints 65
+							std::cout << as_float << std::endl; // prints 65
 						</script></code></pre>
 					</section>
 
 					<section>
-						<h3>Bitoperatorer</h3>
-						<section data-markdown>
-| Operator	| Function		| Use					|
-|-----------|---------------|-----------------------|
-|~			| bitwise NOT	| ~expr					|
-|&			| bitwise AND	| expr & expr			|
-|\|			| bitwise OR	| expr \| expr			|
-|^			| bitwise XOR	| expr ^ expr			|
-|&lt;&lt;	| left shift	| expr &lt;&lt; expr	|
-|&gt;&gt;	| right shift	| expr &gt;&gt; expr	|
-						</section>
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h3>Bitar och Talsystem</h3>
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h3>Typkonvertering (Casting)</h3>
-
-						<ul>
-							<li>Konverterar ett typvärde till ett annat</li>
-							<li>Kan ske implicit eller explicit</li>
-						</ul>
-					</section>
-
-					<section>
-						<h3>Implicit Typkonvertering</h3>
-
-						<p>Görs av kompilatorn utan att du ber om det</p>
-						<ul>
-							<li>Görs av kompilatorn utan att du ber om det</li>
-							<li>Kan ske implicit eller explicit</li>
-						</ul>
-						<p>Sker även vid funktionsanrop!</p>
-					</section>
-
-					<section>
 						<h3>Explicit Typkonvertering</h3>
-
-						<p>Görs av dig som programmerare</p>
-
-						<p>'C-style' är en typkonvertering ärvt från C</p>
-
+						<h4><em>'Old-style' Casting</em></h4>
 						<ul>
-							<li>static_cast</li>
-							<li>const_cast</li>
-							<li>reintrepret_cast</li>
-							<li>dynamic_cast</li>
+							<li>Arv från C</li>
+							<li>Försöker utföra någon av de tidigare nämnda:</li>
+							<ol>
+								<li>const_cast</li>
+								<li>static_cast</li>
+								<li>reinterpret_cast</li>
+							</ol>
+							<li>Mindre kontroll; svårare att debugga</li>
 						</ul>
 					</section>
 				</section>
@@ -329,10 +913,10 @@
 						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							int main()
 							{
-								int n = 1;		// declaration statement
-								n = n + 1;		// expression statement
-								std::cout << << n;	// expression statement
-								return 0;		// return statement
+								int n = 1;			// declaration statement
+								n = n + 1;			// expression statement
+								std::cout << n;	// expression statement
+								return 0;			// return statement
 							}
 						</script></code></pre>
 					</section>					
@@ -344,7 +928,7 @@
 						</ul>
 						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							while (counter != stop); // Null statement
-								++counter;
+								counter++;
 						</script></code></pre>
 					</section>
 					<section data-auto-animate>
@@ -355,7 +939,7 @@
 						</ul>
 						<pre data-id="statements"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							while (counter != stop); // Iterates forever
-								++counter; // Will never execute
+								counter++; // Will never execute
 						</script></code></pre>
 						<p>Lätt misstag, svårt att hitta!</p>
 					</section>
@@ -371,7 +955,7 @@
 							while (val <= 10)
 							{ // block begin
 								sum += val;
-								++val;
+								val++;
 							} // block end
 						</script></code></pre>
 					</section>
@@ -766,7 +1350,7 @@
 						<p>Exempel</p>
 						<pre data-id="for"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							// Iterates 10 times
-							for (int i = 0; i < 10; ++i)
+							for (int i = 0; i < 10; i++)
 							{
 								std::cout << i << " ";
 							}
@@ -782,7 +1366,7 @@
 						<pre data-id="for"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							char word[] = {'h', 'e', 'l', 'l', 'o', '\0'};
 							int word_length = 6;				
-							for (int i = 0; i < word_length; ++i)
+							for (int i = 0; i < word_length; i++)
 								std::cout << word[i];
 						</script></code></pre>
 						<p>Outputs:</p>
@@ -794,7 +1378,7 @@
 						<h3>Iterativa Satser - <em>for</em></h3>
 						<p>Exempel</p>
 						<pre data-id="for"><code class="cpp" data-trim data-line-numbers><script type="text/template">
-							for (int i = 10; i > 0 && my_bool; ++i) // double conditions
+							for (int i = 10; i > 0 && my_bool; i++) // double conditions
 							{
 								std::cout << i << std::endl;
 								if (i == 5)
@@ -810,12 +1394,12 @@
 						<h3>Iterativa Satser - <em>for</em></h3>
 						<p>Exempel</p>
 						<pre data-id="for"><code class="cpp" data-trim data-line-numbers><script type="text/template">
-							for (int i = 0; i < 5; ++i)
+							for (int i = 0; i < 5; i++)
 							{
 								std::cout << "Current row: ";
 								// Nested loops executes for
 								// every iteration
-								for (int j = i; j < 5; ++j)
+								for (int j = i; j < 5; j++)
 									std::cout << j << " ";
 								std::cout << std::endl;
 							}
@@ -886,7 +1470,7 @@
 						<pre data-id="no-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							// Find the word "hello"
 							int index = -1; // Is -1 until found
-							for (int i = 0; i < length && index == -1; ++i)
+							for (int i = 0; i < length && index == -1; i++)
 								if (words[i] == "hello")
 									index = i;
 						</script></code></pre>
@@ -894,7 +1478,7 @@
 						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							// Find the word "hello"
 							int index = 0;
-							for (; index < length; ++index)
+							for (; index < length; index++)
 								if (words[index] == "hello")
 									break; // No need to search rest of list
 						</script></code></pre>
@@ -987,9 +1571,9 @@
 							// Print all pairs (a, b) where
 							// a, b in [1-3] inclusive,
 							// and a != b
-							for (int a = 0; a < 3; ++a)
+							for (int a = 0; a < 3; a++)
 							{
-								for (int b = 0; b < 3; ++b)
+								for (int b = 0; b < 3; b++)
 								{
 									// "Skip" print if equal
 									if (a == b)

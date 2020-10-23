@@ -51,6 +51,11 @@
 				</section>
 
 				<section>
+
+					<section data-auto-animate>
+						<h3>Operatorer</h3>
+					</section>
+
 					<section data-auto-animate>
 						<h3>Operatorer</h3>
 						<ul>
@@ -64,15 +69,44 @@
 							</ul>
 							<li>Kan bli överlagrade</li>
 						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>Så, vad är en operator?</li>
+								<li>De bestämmer vad din programmerade rad ska göra</li>
+								<ul>
+									<li>Se de lite som små funktioner;</li>
+									<li>De tar in en eller fler operander</li>
+									<li>Utför någon funktionalitet</li>
+									<li>Oftast returneras ett värde</li>
+								</ul>
+							</ul>
+							.. vi ska ta en titt på ett exempel
+						</aside>
 					</section>
 					<section data-auto-animate>
 						<h3>Operatorer</h3>
 						
-						<pre><code class="cpp" data-trim><script type="text/template">
-							int a = 5; // Assignment operator
-							int b = 8; // Assignment operator
-							int c = a + b; // Assignment and addition operator
+						<pre><code class="cpp" data-trim data-line-numbers="|2-3|4"><script type="text/template">
+							int a, b, c;
+							a = 5; // Assignment operator
+							b = 8; // Assignment operator
+							c = a + b; // Assignment and addition operator
 						</script></code></pre>
+
+						<aside class="notes">
+							<ul>
+								<li>Här ser vi tre kodrader med operatorer vi säkert känner igen.</li>
+								<ol>
+									<li>Rad 2 och 3 använder en s.k. tilldelnignsoperator</li>
+									<li>På rad 4 används två operatorer</li>
+									<ol>
+										<li>Först en additionsoperator</li>
+										<li>Sen en tilldelningsoperator</li>
+									</ol>
+								</ol>
+							</ul>
+						</aside>
 					</section>
 
 					<section data-auto-animate>
@@ -83,13 +117,17 @@
 								int a = 6 + 3 * 4 / 2 + 2;
 							</script></code></pre>
 							<li>Alla operatorer evalueras inte samtidigt</li>
-							<li>Resultatet av sammansatta uttryck beror på</li>
-							<ol>
-								<li><b>Prioritet</b> - högre prioritet evalueras före</li>
-								<li><b>Associativitet</b> - <em>riktning</em> av evaluering </li>
-							</ol>
-						</ul>	
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Ett uttryck med flera operatorer bildar ett sammansatt uttryck</li>
+								<li>Datorn kan inte evaluera alla dessa operatorer samtidigt</li>
+								<li>Så det behöver alltså finnas någonting som beskriver i vilken ordning detta sker</li>
+							</ul>
+							... detta är definierad genom prioritet och assiciativitet
+						</aside>
 					</section>
+
 					<section data-auto-animate>
 						<h3>Prioritet och Associativitet</h3>
 						<ul>
@@ -103,9 +141,16 @@
 								<li><b>Prioritet</b> - högre prioritet evalueras före</li>
 								<li><b>Associativitet</b> - <em>riktning</em> av evaluering </li>
 							</ol>
-							
-						</ul>	
+
+							<aside class="notes">
+								<ul>
+									<li>Dessa två begrepp är definierade för alla operatorer</li>
+									<li>Så det behöver alltså finnas någonting som beskriver i vilken ordning detta sker</li>
+								</ul>
+							</aside>
+						</ul>
 					</section>
+					
 					<section data-auto-animate>
 						<h3>Prioritet och Associativitet</h3>
 						<pre data-id="operator"><code class="cpp" data-trim><script type="text/template">
@@ -125,8 +170,24 @@
 							</ul>
 							<ul><b>3 * 4</b> / 2 = 12 / 2</ul>
 							<ul><b>6 + 6</b> + 2 = 12 + 2</ul>
-						</ol>	
+						</ol>
+
+						<aside class="notes">
+							<ul>
+								<li>Prioritet anger i vilken ordning operatorer ska evalueras</li>
+								<ul>
+									<li>Operatorer med högre prioritet evalueras före operatorer med lägre prioritet</li>
+									<li>Ett exempel på detta är att multiplikation alltid evalueras före addition</li>
+								</ul>
+								<li>Associativitet anger i vilken ordning, eller riktning, operatorer av samma prioritet ska evalueras</li>
+								<ul>
+									<li>I uttrycket ovan spelar det ingen roll för resultatet om multiplikation evalueras före division</li>
+									<li>Datorn behöver en bestämd ordning att utföra dessa två operatorer på</li>
+								</ul>
+							</ul>
+						</aside>
 					</section>
+
 					<section data-auto-animate>
 						<h3>Prioritet och Associativitet</h3>
 						<p>Du kan ändra denna ordning med paranteser</p>
@@ -135,6 +196,12 @@
 							int b = ((6 + 3) * 4) / 2 + 2;	// b = 20
 							int c = 6 + 3 * 4 / (2 + 2);		// c = 9
 						</script></code></pre>
+
+						<aside class="notes">
+							<ul>
+								<li>Du som programmerare kan överstrida prioritet med hjälp av paranteser</li>
+							</ul>
+						</aside>
 					</section>
 
 					<section>
@@ -185,9 +252,11 @@ R = Right, L = Left
 							</script>
 					</section>
 
-					<section>
+					<section data-auto-animate>
 						<h3>Tilldelningsoperator</h3>
-						<pre><code class="cpp" data-line-numbers data-trim>
+
+						<p>Tilldelar ett värde till en redan existerande variabel</p>
+						<pre data-id="assign"><code class="cpp" data-line-numbers data-trim>
 							int foo = 0;
 							const int bar = foo;
 
@@ -195,12 +264,53 @@ R = Right, L = Left
 
 							int a, b;
 							a = b = 10;
+						</code></pre>
+						<p>Vilka av dessa rader använder en tilldelnignsoperator?</p>
+					</section>
 
-							// Vanligt fel!
+					<section data-auto-animate>
+						<h3>Tilldelningsoperator</h3>
+
+						<p>Tilldelar ett värde till en redan existerande variabel</p>
+						<pre data-id="assign"><code class="cpp" data-line-numbers="4,7|1-2" data-trim>
+							int foo = 0;
+							const int bar = foo;
+
+							foo = 37; // Assignment operator
+
+							int a, b;
+							a = b = 10;  // Assignment operator
+						</code></pre>
+						<p>Vilka av dessa rader använder en tilldelnignsoperator?</p>
+
+						<aside class="notes">
+							<ul>
+								<li>Rad 4 och 7 använder en tilldelningsoperator</li>
+								<li>...Rad 1 och 2 är vanligt att missta för tilldelningsoperator, men dessa är vad man kallar copy-constructor</li>
+								<li>...Det finns även ett vanligt misstag där man råkar använda en tilldelningsoperator av misstag</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section data-auto-animate>
+						<h3>Tilldelningsoperator</h3>
+
+						<p>Tilldelar ett värde till en redan existerande variabel</p>
+						<pre data-id="assign"><code class="cpp" data-line-numbers data-trim>
+							int foo = 0;
+							const int bar = foo;
+
+							foo = 37; // Assignment operator
+
+							int a, b;
+							a = b = 10;  // Assignment operator
+
+							// Common typo!
 							if (a = b) // always true if b != 0
 							if (a == b) // tests if a is equal to b
 						</code></pre>
 					</section>
+					
 
 					<section data-auto-animate>
 						<h3>Inkremerings- och Dekrementeringsoperator</h3>

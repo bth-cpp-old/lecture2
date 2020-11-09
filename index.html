@@ -79,9 +79,8 @@
 
 						## Agenda
 						1. Uttryck (Expressions)
-							* Operatorer
+							* Operatorer (och talsystem)
 							* Typkonvertering
-						2. Talsystem
 						3. Satser (Statements)
 							* Villkorliga satser
 							* Iterativa satser
@@ -132,17 +131,7 @@
 						</ul>
 
 						<aside class="notes">
-							<ul>
-								<li>Så, vad är en operator?</li>
-								<li>De bestämmer vad din programmerade rad ska göra</li>
-								<ul>
-									<li>Se de lite som små funktioner;</li>
-									<li>De tar in en eller fler operander</li>
-									<li>Utför någon funktionalitet</li>
-									<li>Oftast returneras ett värde</li>
-								</ul>
-							</ul>
-							.. vi ska ta en titt på ett exempel
+							Hur du konstruerar dina uttryck
 						</aside>
 					</section>
 
@@ -167,6 +156,10 @@
 								<td>operand</td>
 							</tr>
 						</table>
+
+						<aside class="notes">
+							Hela detta uttryck kan tolkas som resultatet: 13
+						</aside>
 					</section>
 
 					<section data-auto-animate>
@@ -670,6 +663,12 @@ R = Right, L = Left
 				<section>
 					<section>
 						<h3>Bitoperatorer</h3>
+
+						<aside class="notes">
+							Innan vi pratar operatorer för bitar
+							Behövs lite förklaring om bitar
+							Vilket i sig kräver lite förståelse för talsystem
+						</aside>
 					</section>
 
 					<section>
@@ -1687,6 +1686,24 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 							}
 						</script></code></pre>
 					</section>
+
+					<section>
+						<h3>När <em>if</em> och när <em>switch</em>?</h3>
+
+						<ul>
+							<li><em>if</em> löser de mesta situationer</li>
+							<li><em>switch</em> är bra när</li>
+							<ul>
+								<li>Det finns mycket utfall</li>
+								<li>Många utfall har samma resultat</li>
+							</ul>
+						</ul>
+
+						<aside class="notes">
+							Mycket utfall - personligen 5+
+							Samma resultat - mycket AND i samma if-sats
+						</aside>
+					</section>
 				</section>
 
 				<section>
@@ -1916,7 +1933,7 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 						<h3>Iterativa Satser - <em>for</em></h3>
 						<p>Exempel</p>
 						<pre data-id="for"><code class="cpp" data-trim data-line-numbers><script type="text/template">
-							for (int i = 10; i > 0; i++)
+							for (int i = 10; i > 0; i--)
 							{
 								std::cout << i << " ";
 							}
@@ -1951,19 +1968,16 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 						<h3>Iterativa Satser - <em>for</em></h3>
 						<pre><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							const int ROUND_LIMIT = 10;
-							int current_rount = 0;
-							bool keep_playing = true;
-							char input;			
+							int current_round = 0;
+							char input = ' ';
 
 							// Null statement as initializer
-							for (; current_rount < ROUND_LIMIT && keep_playing; i++)
+							for (; current_round < ROUND_LIMIT && input != 'q';
+								current_round++)
 							{
-								// Play
-								
+								// Play								
 								std::cout << "Enter q to quit: " << std::endl;
 								std::cin >> input;
-								if (input == 'q')
-									my_bool = false;
 							}
 						</script></code></pre>
 					</section>
@@ -2034,7 +2048,7 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 						<p>Exempel</p>
 						<pre data-id="loop"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							std::vector<int> my_primes = {2, 3, 5, 7, 11, 13, 17, 19};
-							for (auto &nr : my_primes)
+							for (int &nr : my_primes)
 							{
 								std::cout << nr << std::endl;
 							}
@@ -2047,6 +2061,64 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 							<li><em>declaration</em> måste definiera en variabel</li>
 							<li><em>expression</em> måste representera en sekvens</li>
 						</ul>
+
+						<aside class="notes">
+							Här används en referens '&'
+							Mer om detta när vi pratar minne
+						</aside>
+					</section>
+
+					<section>
+						<h3>När ska vad användas?</h3>
+
+						<table>
+							<tr>
+								<th>Antal iterationer</th>
+								<th>Använd</th>
+							</tr>
+							<tr>
+								<td>Omöjligt att beräkna</td>
+								<td><em>while</em><br><em>do while</em></td>
+							</tr>
+							<tr>
+								<td>Möjligt att beräkna</td>
+								<td><em>for</em><br><em>ranged for</em></td>
+							</tr>
+						</table>
+					</section>
+
+					<section>
+						<h3>När ska vad användas?</h3>
+
+						<p>Antal iterationer kan <b>inte</b> beräknas</p>
+
+						<br>
+						<p><b>Garanterat en exekvering av kodblocket?</b><br>Ok att använda <em>do while</em></p>
+						<br>
+						<p><b>Andra utfall</b><br>Använd <em>while</em></p>
+
+						
+						<aside class="notes">
+							Container - komplex samling
+							Kräver funktionalitet för start och slut
+						</aside>
+					</section>
+
+					<section>
+						<h3>När ska vad användas?</h3>
+
+						<p>Antal iterationer kan beräknas</p>
+
+						<br>
+						<p><b>Itererar du en statisk array eller en <em>container</em>?</b><br>Ok att använda <em>ranged for</em></p>
+						<br>
+						<p><b>Andra utfall</b><br>Använd <em>for</em></p>
+
+						
+						<aside class="notes">
+							Container - komplex samling
+							Kräver funktionalitet för start och slut
+						</aside>
 					</section>
 				</section>
 
@@ -2095,11 +2167,16 @@ main.cpp:7:15: error: use of undeclared identifier 'to_print'
 
 						<pre data-id="with-break"><code class="cpp" data-trim data-line-numbers><script type="text/template">
 							// Find the word "hello"
-							int index = 0;
+							int index = -1; // Is -1 until found
 
-							for (; index < length; index++)
+							for (int i = 0; i < length; i++)
+							{
 								if (words[index] == "hello")
+								{
+									index = i;
 									break; // No need to search rest of list
+								}
+							}
 						</script></code></pre>
 					</section>
 					
